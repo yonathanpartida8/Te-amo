@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#faf5f1">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>Para ti, amorcito</title>
+
+    <!-- Google Fonts refinadas -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Dancing+Script:wght@400;500;600&family=Quicksand:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== RESET Y VARIABLES ===== */
+        :root {
+            --bg: #faf5f1;
+            --card: #fefcf9;
+            --card-alt: #fdf7f3;
+            --rose: #c28080;
+            --rose-deep: #a86363;
+            --rose-soft: #d4a0a0;
+            --text: #4a3b3c;
+            --text-soft: #6d5c5d;
+            --text-lighter: #8c7a7b;
+            --shadow-sm: 0 2px 12px rgba(140, 110, 110, 0.07);
+            --shadow-md: 0 8px 28px rgba(140, 110, 110, 0.10);
+            --shadow-lg: 0 16px 40px rgba(140, 110, 110, 0.13);
+            --shadow-glow: 0 0 30px rgba(200, 140, 140, 0.18);
+            --radius-xl: 28px;
+            --radius-lg: 20px;
+            --radius-md: 14px;
+            --transition-smooth: 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+            --transition-bounce: 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overscroll-behavior: none;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        body {
+            font-family: 'Quicksand', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 0;
+            margin: 0;
+            overflow-x: hidden;
+            line-height: 1.7;
+            letter-spacing: 0.01em;
+            background-image:
+                radial-gradient(ellipse at 15% 10%, rgba(210, 170, 170, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 85% 90%, rgba(185, 170, 190, 0.10) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(220, 200, 195, 0.06) 0%, transparent 70%);
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        /* ===== FONDO DE CORAZONES FLOTANTES ===== */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .heart-particle {
+            position: absolute;
+            color: rgba(200, 130, 130, 0.15);
+            font-size: 20px;
+            animation: floatHeart 20s infinite linear;
+            will-change: transform;
+        }
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(720deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* ===== ORBES CON PARALLAX ===== */
+        .parallax-orbs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(70px);
+            opacity: 0.30;
+            will-change: transform;
+            transition: transform 0.1s linear;
+        }
+        .orb--1 {
+            width: 200px;
+            height: 200px;
+            background: rgba(210, 165, 165, 0.25);
+            top: -50px;
+            left: -60px;
+            animation: floatOrb 18s ease-in-out infinite;
+        }
+        .orb--2 {
+            width: 170px;
+            height: 170px;
+            background: rgba(185, 170, 195, 0.22);
+            bottom: 10%;
+            right: -40px;
+            animation: floatOrb 22s ease-in-out infinite reverse;
+        }
+        .orb--3 {
+            width: 130px;
+            height: 130px;
+            background: rgba(195, 180, 170, 0.20);
+            top: 55%;
+            left: 60%;
+            animation: floatOrb 20s ease-in-out infinite 5s;
+        }
+        .orb--4 {
+            width: 100px;
+            height: 100px;
+            background: rgba(200, 180, 190, 0.18);
+            top: 20%;
+            left: 20%;
+            animation: floatOrb 25s ease-in-out infinite 2s;
+        }
+
+        @keyframes floatOrb {
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+            25% {
+                transform: translate(25px, -30px) scale(1.1);
+            }
+            50% {
+                transform: translate(-15px, 20px) scale(0.9);
+            }
+            75% {
+                transform: translate(-25px, -10px) scale(1.05);
+            }
+        }
+
+        /* ===== CONTENEDOR PRINCIPAL ===== */
+        .main-container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 440px;
+            padding: 32px 22px 48px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        /* ===== HERO ===== */
+        .hero-section {
+            text-align: center;
+            padding: 30px 12px 10px;
+            animation: fadeInUp 0.9s both;
+            animation-delay: 0.1s;
+        }
+
+        .hero-icon {
+            display: inline-block;
+            font-size: 48px;
+            margin-bottom: 12px;
+            animation: gentleFloat 3.5s ease-in-out infinite;
+            filter: drop-shadow(0 4px 12px rgba(180, 140, 140, 0.2));
+        }
+
+        @keyframes gentleFloat {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', 'Cormorant Garamond', serif;
+            font-size: 2.1rem;
+            font-weight: 600;
+            color: var(--text);
+            letter-spacing: 0.02em;
+            line-height: 1.2;
+        }
+        .hero-title .highlight {
+            color: var(--rose-deep);
+            font-style: italic;
+            font-weight: 700;
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            color: var(--text-soft);
+            margin-top: 8px;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+        }
+
+        .hero-divider {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--rose-soft), transparent);
+            margin: 16px auto 0;
+            border-radius: 2px;
+        }
+
+        /* ===== CARTA ===== */
+        .letter-section {
+            animation: fadeInUp 0.9s both;
+            animation-delay: 0.25s;
+            perspective: 1000px;
+        }
+
+        .letter-envelope {
+            background: var(--card);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: visible;
+            transition: box-shadow var(--transition-smooth);
+            cursor: pointer;
+            user-select: none;
+            transform-style: preserve-3d;
+            border: 1px solid rgba(210, 180, 180, 0.15);
+        }
+
+        .letter-envelope:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .letter-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 58px;
+            background: linear-gradient(180deg, #fefaf7 0%, #fdf5ef 40%, #f9ede4 100%);
+            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+            z-index: 3;
+            transform-origin: top center;
+            transform: rotateX(0deg);
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 12px rgba(140, 110, 110, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: auto;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(200, 170, 170, 0.1);
+        }
+        .letter-flap::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 18px solid transparent;
+            border-right: 18px solid transparent;
+            border-top: 16px solid #f9ede4;
+            transition: border-top-color 0.5s ease;
+        }
+        .letter-flap.open {
+            transform: rotateX(-175deg);
+            box-shadow: 0 8px 20px rgba(140, 110, 110, 0.10);
+        }
+        .letter-flap.open::after {
+            border-top-color: #f5e6db;
+        }
+
+        .flap-seal {
+            width: 24px;
+            height: 24px;
+            background: var(--rose-soft);
+            border-radius: 50%;
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 2px 8px rgba(180, 130, 130, 0.25);
+            transition: all var(--transition-soft);
+            z-index: 4;
+            pointer-events: none;
+        }
+        .letter-flap.open .flap-seal {
+            opacity: 0;
+            transform: translateX(-50%) scale(0.3);
+        }
+
+        .flap-hint {
+            position: absolute;
+            bottom: -34px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            color: var(--text-lighter);
+            letter-spacing: 0.06em;
+            font-weight: 400;
+            white-space: nowrap;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+            z-index: 2;
+            font-style: italic;
+        }
+        .letter-envelope.opened .flap-hint {
+            opacity: 0;
+        }
+
+        .letter-body {
+            padding: 64px 24px 24px;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            border-radius: var(--radius-xl);
+            background: var(--card);
+        }
+
+        .letter-content-wrapper {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.9s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.6s ease 0.15s,
+                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        .letter-envelope.opened .letter-content-wrapper {
+            max-height: 1000px;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .letter-inner {
+            background-image: repeating-linear-gradient(transparent,
+                    transparent 32px,
+                    rgba(185, 160, 160, 0.08) 32px,
+                    rgba(185, 160, 160, 0.08) 33px);
+            padding: 10px 4px;
+            border-radius: var(--radius-xs);
+        }
+
+        .letter-greeting {
+            font-family: 'Playfair Display', 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--rose-deep);
+            margin-bottom: 12px;
+            font-style: italic;
+        }
+        .letter-text {
+            font-size: 0.95rem;
+            color: var(--text);
+            line-height: 1.9;
+            letter-spacing: 0.015em;
+            font-weight: 400;
+        }
+        .letter-text .emph {
+            color: var(--rose-deep);
+            font-weight: 500;
+        }
+        .letter-signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.7rem;
+            color: var(--rose);
+            text-align: right;
+            margin-top: 18px;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+        }
+
+        /* ===== COSITAS DE TI ===== */
+        .memories-section {
+            animation: fadeInUp 0.9s both;
+            animation-delay: 0.4s;
+        }
+
+        .section-label {
+            font-family: 'Playfair Display', 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--text-soft);
+            letter-spacing: 0.04em;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .section-label span {
+            color: var(--rose-soft);
+        }
+
+        .memories-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .memory-chip {
+            background: var(--card);
+            border-radius: var(--radius-lg);
+            padding: 18px 14px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-soft);
+            position: relative;
+            overflow: visible;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            user-select: none;
+            border: 1px solid transparent;
+            will-change: transform;
+        }
+        .memory-chip:hover {
+            box-shadow: var(--shadow-md);
+            border-color: rgba(200, 160, 160, 0.2);
+            transform: translateY(-3px);
+        }
+        .memory-chip:active {
+            transform: scale(0.95);
+            transition: transform 0.12s ease;
+        }
+        .memory-chip .chip-icon {
+            font-size: 26px;
+            transition: transform 0.4s var(--transition-bounce);
+        }
+        .memory-chip.tapped .chip-icon {
+            transform: scale(1.25);
+        }
+        .memory-chip .chip-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text);
+            letter-spacing: 0.02em;
+        }
+        .memory-chip .chip-reveal {
+            font-size: 0.82rem;
+            color: var(--text-soft);
+            opacity: 0;
+            max-height: 0;
+            overflow: visible;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            line-height: 1.6;
+            font-style: italic;
+            margin-top: 0;
+            width: 100%;
+            padding: 0 4px;
+        }
+        .memory-chip.revealed .chip-reveal {
+            opacity: 1;
+            max-height: 200px;
+            margin-top: 8px;
+            overflow: visible;
+        }
+        .memory-chip.revealed {
+            background: var(--card-alt);
+            box-shadow: var(--shadow-glow);
+            border-color: rgba(200, 155, 155, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* ===== REPRODUCTOR DE MÚSICA (CORAZÓN) ===== */
+        .music-section {
+            animation: fadeInUp 0.9s both;
+            animation-delay: 0.55s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .music-button {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #fdf6f2, #f3dfd5);
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--shadow-md), 0 0 0 1px rgba(210, 170, 170, 0.15);
+            transition: all var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: var(--rose-deep);
+            user-select: none;
+            position: relative;
+        }
+        .music-button:active {
+            transform: scale(0.90);
+        }
+        .music-button.playing {
+            animation: pulseGlow 2s ease-in-out infinite;
+            box-shadow: var(--shadow-glow), 0 0 0 1px rgba(200, 150, 150, 0.3);
+        }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: var(--shadow-md), 0 0 0 1px rgba(210,170,170,0.15); }
+            50% { box-shadow: var(--shadow-glow), 0 0 0 8px rgba(200,150,150,0.08); }
+        }
+
+        .music-label {
+            font-size: 0.85rem;
+            color: var(--text-soft);
+            font-style: italic;
+            letter-spacing: 0.03em;
+            font-weight: 400;
+        }
+
+        /* ===== CORAZÓN INTERACTIVO ===== */
+        .heart-section {
+            animation: fadeInUp 0.9s both;
+            animation-delay: 0.7s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .heart-button {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #fdf6f2 0%, #f9ece3 60%, #f3dfd5 100%);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 2px;
+            box-shadow: var(--shadow-md), 0 0 0 1px rgba(210, 170, 170, 0.15);
+            transition: all var(--transition-smooth);
+            position: relative;
+            user-select: none;
+            font-family: 'Quicksand', sans-serif;
+            color: var(--rose-deep);
+            font-weight: 500;
+            font-size: 0.85rem;
+            letter-spacing: 0.04em;
+            text-align: center;
+            padding: 20px;
+        }
+        .heart-button:active {
+            transform: scale(0.90);
+            box-shadow: var(--shadow-lg), 0 0 0 1px rgba(200, 150, 150, 0.3);
+            transition: all 0.15s ease;
+        }
+        .heart-button .heart-emoji {
+            font-size: 42px;
+            transition: all 0.5s var(--transition-bounce);
+            display: block;
+        }
+        .heart-button.beating .heart-emoji {
+            animation: heartbeat 1.1s ease-in-out infinite;
+        }
+        .heart-button .heart-label {
+            font-size: 0.78rem;
+            color: var(--text-soft);
+            letter-spacing: 0.05em;
+            transition: opacity 0.4s ease;
+        }
+        .heart-message {
+            font-family: 'Playfair Display', 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--rose-deep);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            max-width: 300px;
+            line-height: 1.6;
+            min-height: 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 8px;
+        }
+        .heart-message.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            12% { transform: scale(1.3); }
+            24% { transform: scale(1); }
+            36% { transform: scale(1.2); }
+            48% { transform: scale(1); }
+            60% { transform: scale(1.08); }
+            72% { transform: scale(1); }
+        }
+
+        .heart-button.pulsed {
+            animation: softPulse 2.2s ease-in-out infinite;
+        }
+        @keyframes softPulse {
+            0%, 100% { box-shadow: var(--shadow-md); }
+            50% { box-shadow: var(--shadow-glow), 0 0 0 8px rgba(200, 150, 150, 0.06); }
+        }
+
+        /* ===== COSAS QUE SIEMPRE VOY A QUERER ===== */
+        .things-section {
+            animation: fadeInUp 0.9s both;
+            animation-delay: 0.85s;
+            text-align: center;
+        }
+
+        .things-card {
+            background: var(--card);
+            border-radius: var(--radius-xl);
+            padding: 28px 22px;
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-soft);
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(210, 180, 180, 0.12);
+        }
+        .things-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: rgba(200, 160, 160, 0.2);
+        }
+        .things-card:active {
+            transform: scale(0.97);
+            transition: transform 0.12s ease;
+        }
+
+        .things-card .things-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+            display: block;
+            transition: transform 0.4s var(--transition-bounce);
+        }
+        .things-card.spinning .things-icon {
+            transform: rotate(15deg) scale(1.2);
+        }
+
+        .things-label {
+            font-family: 'Playfair Display', 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-soft);
+            letter-spacing: 0.03em;
+            margin-bottom: 6px;
+        }
+
+        .things-phrase {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text);
+            letter-spacing: 0.02em;
+            line-height: 1.7;
+            min-height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.35s ease;
+            font-style: italic;
+            padding: 0 6px;
+        }
+        .things-phrase.fading {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        .things-tap-hint {
+            font-size: 0.75rem;
+            color: var(--text-lighter);
+            letter-spacing: 0.06em;
+            margin-top: 8px;
+            opacity: 0.6;
+            font-style: italic;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer-section {
+            text-align: center;
+            padding: 16px 0 24px;
+            animation: fadeInUp 0.9s both;
+            animation-delay: 1s;
+        }
+        .footer-heart {
+            font-size: 20px;
+            opacity: 0.4;
+            animation: gentleFloat 3s ease-in-out infinite;
+            display: inline-block;
+            cursor: default;
+        }
+        .footer-text {
+            font-size: 0.8rem;
+            color: var(--text-lighter);
+            letter-spacing: 0.05em;
+            margin-top: 6px;
+            font-weight: 300;
+        }
+
+        /* ===== ANIMACIONES ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (min-width: 440px) {
+            .main-container {
+                padding: 40px 28px 56px;
+                gap: 36px;
+            }
+            .hero-title {
+                font-size: 2.4rem;
+            }
+            .letter-flap {
+                height: 64px;
+            }
+            .letter-flap::after {
+                border-left-width: 20px;
+                border-right-width: 20px;
+                border-top-width: 18px;
+            }
+            .flap-seal {
+                width: 26px;
+                height: 26px;
+                bottom: 10px;
+            }
+            .letter-body {
+                padding: 72px 28px 28px;
+            }
+            .memory-chip {
+                padding: 20px 16px;
+                min-height: 88px;
+            }
+            .heart-button {
+                width: 150px;
+                height: 150px;
+            }
+            .heart-button .heart-emoji {
+                font-size: 46px;
+            }
+            .music-button {
+                width: 90px;
+                height: 90px;
+                font-size: 40px;
+            }
+        }
+
+        @media (max-width: 340px) {
+            .main-container {
+                padding: 20px 12px 32px;
+                gap: 24px;
+            }
+            .hero-title {
+                font-size: 1.7rem;
+            }
+            .letter-body {
+                padding: 56px 14px 16px;
+            }
+            .letter-text {
+                font-size: 0.88rem;
+            }
+            .memories-grid {
+                gap: 8px;
+            }
+            .memory-chip {
+                padding: 14px 10px;
+                min-height: 68px;
+            }
+            .heart-button {
+                width: 110px;
+                height: 110px;
+                font-size: 0.75rem;
+            }
+            .heart-button .heart-emoji {
+                font-size: 32px;
+            }
+            .music-button {
+                width: 70px;
+                height: 70px;
+                font-size: 28px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== CORAZONES FLOTANTES (FONDO) ===== -->
+    <div class="floating-hearts" id="floatingHearts" aria-hidden="true"></div>
+
+    <!-- ===== ORBES CON PARALLAX ===== -->
+    <div class="parallax-orbs" id="parallaxOrbs" aria-hidden="true">
+        <div class="orb orb--1" data-speed="0.08"></div>
+        <div class="orb orb--2" data-speed="0.12"></div>
+        <div class="orb orb--3" data-speed="0.06"></div>
+        <div class="orb orb--4" data-speed="0.15"></div>
+    </div>
+
+    <!-- ===== CONTENEDOR PRINCIPAL ===== -->
+    <main class="main-container" role="main">
+
+        <!-- HERO -->
+        <section class="hero-section" aria-label="Encabezado">
+            <span class="hero-icon" aria-hidden="true">💌</span>
+            <h1 class="hero-title">Hice esto para ti, <span class="highlight">amorcito</span>.</h1>
+            <p class="hero-subtitle">Te amo muchísimo, mi niña linda</p>
+            <div class="hero-divider" aria-hidden="true"></div>
+        </section>
+
+        <!-- CARTA -->
+        <section class="letter-section" aria-label="Carta personal">
+            <div class="letter-envelope" id="letterEnvelope" role="button" tabindex="0" aria-label="Toca para abrir la carta" aria-expanded="false">
+                <div class="letter-flap" id="letterFlap">
+                    <span class="flap-seal" aria-hidden="true"></span>
+                </div>
+                <span class="flap-hint" aria-hidden="true">toca para abrir ✦</span>
+                <div class="letter-body">
+                    <div class="letter-content-wrapper" id="letterContent">
+                        <div class="letter-inner">
+                            <p class="letter-greeting">Mi amorcito,</p>
+                            <p class="letter-text">
+                                Hoy fue un día bastante pesado para mí. Probablemente me notaste algo callado durante la llamada, y quiero que sepas algo importante: <span class="emph">mi silencio no tiene nada que ver con lo que siento por ti.</span>
+                            </p>
+                            <p class="letter-text" style="margin-top:8px;">
+                                A veces el cansancio me gana y me cuesta encontrar las palabras, pero <span class="emph">incluso en esos momentos, escucharte me hace sentir mejor.</span> Tu voz es como un refugio suave para mis días difíciles.
+                            </p>
+                            <p class="letter-text" style="margin-top:8px;">
+                                Nunca quiero que pienses que mi forma de estar refleja menos amor. <span class="emph">Te amo con todo lo que soy</span>, incluso cuando estoy agotado. Valoro muchísimo que estés conmigo, que me entiendas, que me abraces con tu presencia aunque sea a la distancia.
+                            </p>
+                            <p class="letter-text" style="margin-top:8px;">
+                                Gracias por existir, por ser tú, por quedarte. <span class="emph">Eres lo más bonito que me ha pasado.</span>
+                            </p>
+                            <p class="letter-signature">— Te ama, siempre</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COSITAS DE TI -->
+        <section class="memories-section" aria-label="Cositas de ti">
+            <p class="section-label">✨ <span>Cositas de ti</span> ✨</p>
+            <div class="memories-grid">
+                <div class="memory-chip" data-reveal="Siempre ilumina mis mañanas más grises. Es mi sonido favorito del mundo.">
+                    <span class="chip-icon" aria-hidden="true">😊</span>
+                    <span class="chip-title">Tu risa</span>
+                    <span class="chip-reveal"></span>
+                </div>
+                <div class="memory-chip" data-reveal="Neta me hace sentir en casita c': lit como si todo estuviera bien.">
+                    <span class="chip-icon" aria-hidden="true">🤍</span>
+                    <span class="chip-title">Gracias por ser así</span>
+                    <span class="chip-reveal"></span>
+                </div>
+                <div class="memory-chip" data-reveal="El momento más esperado de mi día. Siempre quiero que duren más y más nuestras llamadas c:">
+                    <span class="chip-icon" aria-hidden="true">📞</span>
+                    <span class="chip-title">Nuestras llamadas</span>
+                    <span class="chip-reveal"></span>
+                </div>
+                <div class="memory-chip" data-reveal="Neta que me recuerdan que alguien especial piensa en mí al despertar, y neta que no tienen precio, es súper lindo c':">
+                    <span class="chip-icon" aria-hidden="true">☀️</span>
+                    <span class="chip-title">Tus buenos días</span>
+                    <span class="chip-reveal"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== REPRODUCTOR DE MÚSICA ===== -->
+        <section class="music-section" aria-label="Reproductor de música">
+            <button class="music-button" id="musicButton" aria-label="Reproducir o pausar la música de fondo">
+                <span id="musicIcon">🎵</span>
+            </button>
+            <p class="music-label" id="musicLabel">Toca para escuchar la canción, mi vida</p>
+            <audio id="audioPlayer" src="musica.mp3" preload="auto"></audio>
+        </section>
+
+        <!-- ===== CORAZÓN INTERACTIVO ===== -->
+        <section class="heart-section" aria-label="Botón especial del corazón">
+            <button class="heart-button" id="heartButton" aria-label="Toca aquí cuando me extrañes">
+                <span class="heart-emoji" aria-hidden="true">🤍</span>
+                <span class="heart-label">Toca aquí mi amorcito<br>Te amo</span>
+            </button>
+            <p class="heart-message" id="heartMessage" aria-live="polite"></p>
+        </section>
+
+        <!-- ===== COSAS QUE SIEMPRE VOY A QUERER ===== -->
+        <section class="things-section" aria-label="Cosas que siempre voy a querer de ti">
+            <div class="things-card" id="thingsCard" role="button" tabindex="0" aria-label="Toca para ver más cosas que amo de ti">
+                <span class="things-icon" aria-hidden="true">🌸</span>
+                <p class="things-label">Cosas que siempre voy a querer de ti</p>
+                <p class="things-phrase" id="thingsPhrase">Tu forma de hacerme sentir amado incluso en los días difíciles.</p>
+                <span class="things-tap-hint">toca para descubrir otra ✦</span>
+            </div>
+        </section>
+
+        <!-- ===== FOOTER ===== -->
+        <footer class="footer-section" aria-label="Pie de página">
+            <span class="footer-heart" aria-hidden="true">♥</span>
+            <p class="footer-text">Hecho con cariño, mi vida c':</p>
+        </footer>
+
+    </main>
+
+    <script>
+        (() => {
+            'use strict';
+
+            // ===== DOM REFS =====
+            const letterEnvelope = document.getElementById('letterEnvelope');
+            const letterFlap = document.getElementById('letterFlap');
+            const heartButton = document.getElementById('heartButton');
+            const heartMessage = document.getElementById('heartMessage');
+            const thingsCard = document.getElementById('thingsCard');
+            const thingsPhrase = document.getElementById('thingsPhrase');
+            const thingsIcon = thingsCard?.querySelector('.things-icon');
+            const memoryChips = document.querySelectorAll('.memory-chip');
+            const orbs = document.querySelectorAll('.orb');
+            const audioPlayer = document.getElementById('audioPlayer');
+            const musicButton = document.getElementById('musicButton');
+            const musicIcon = document.getElementById('musicIcon');
+            const musicLabel = document.getElementById('musicLabel');
+
+            // ===== ESTADO =====
+            let isLetterOpen = false;
+            let isHeartBeating = false;
+            let heartTapCount = 0;
+            let isMusicPlaying = false;
+
+            // ===== CORAZONES FLOTANTES =====
+            (function createHearts() {
+                const container = document.getElementById('floatingHearts');
+                const heartSymbols = ['❤️', '♥', '💕', '💗', '💖', '✨'];
+                for (let i = 0; i < 25; i++) {
+                    const el = document.createElement('span');
+                    el.className = 'heart-particle';
+                    el.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+                    el.style.left = Math.random() * 100 + '%';
+                    el.style.animationDuration = (15 + Math.random() * 25) + 's';
+                    el.style.animationDelay = (Math.random() * 20) + 's';
+                    el.style.fontSize = (12 + Math.random() * 24) + 'px';
+                    el.style.opacity = 0.1 + Math.random() * 0.15;
+                    container.appendChild(el);
+                }
+            })();
+
+            // ===== FRASES CORAZÓN =====
+            const heartPhrases = [
+                'Siempre estoy pensando en ti, amorcito.',
+                'Aunque a veces esté callado, mi corazón siempre late por ti.',
+                'Lit eres mi lugar seguro, siempre.',
+                'De vd que cada latido es un "te amo muchísimo".',
+                'Neta que no hay cansancio que apague lo que siento por ti.',
+                'Tu existencia me hace mejor persona y neta me inspira a ser mejor.',
+                'Siempre tuyo, porque te pertenezco, mi amorcito.',
+                'Eres la calmita que mi alma necesita.',
+            ];
+
+            // ===== FRASES "COSAS QUE SIEMPRE..." =====
+            const thingsPhrasesList = [
+                'Tu forma de hacerme sentir amado incluso en los días difíciles.',
+                'Cómo te ríes de mis chistes malos y raros solo para hacerme feliz.',
+                'Tu paciencia infinita cuando estoy cansado c:.',
+                'La manera en que dices "que me amas" y todo se ilumina.',
+                'Ese brillo en tu voz cuando hablas de algo que te emociona, neta que lindo.',
+                'Cómo me entiendes sin que tenga que explicar demasiado, incluso cuando tartamudeo.',
+                'Tu dulzura y tus detalles tan lindos.',
+                'La forma en que haces que lo ordinario se sienta especial.',
+                'Tu amor, lit me encanta.',
+                'Cómo me dices y me hablas de bonito.',
+                'Neta todo de ti.',
+                'La manera en que me miras, incluso a través de una pantalla, neta que preciosura.',
+                'Tus pequeños gestos que demuestran cuánto te importo.',
+            ];
+            let lastThingIndex = -1;
+
+            // ===== HÁPTICA =====
+            const haptic = (duration = 12) => {
+                if (navigator.vibrate && navigator.vibrate.length !== undefined) {
+                    try { navigator.vibrate(duration); } catch (_) { /* silencio */ }
+                }
+            };
+
+            // ===== CARTA =====
+            const openLetter = () => {
+                if (isLetterOpen) return;
+                isLetterOpen = true;
+                letterFlap.classList.add('open');
+                letterEnvelope.classList.add('opened');
+                letterEnvelope.setAttribute('aria-expanded', 'true');
+                haptic(18);
+                setTimeout(() => {
+                    const rect = letterEnvelope.getBoundingClientRect();
+                    const target = window.scrollY + rect.top - window.innerHeight * 0.15;
+                    window.scrollTo({ top: target, behavior: 'smooth' });
+                }, 400);
+            };
+
+            const closeLetter = () => {
+                if (!isLetterOpen) return;
+                isLetterOpen = false;
+                letterFlap.classList.remove('open');
+                letterEnvelope.classList.remove('opened');
+                letterEnvelope.setAttribute('aria-expanded', 'false');
+                haptic(10);
+            };
+
+            letterEnvelope.addEventListener('click', (e) => {
+                if (e.target.closest('.memory-chip')) return;
+                isLetterOpen ? closeLetter() : openLetter();
+            });
+
+            letterEnvelope.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    isLetterOpen ? closeLetter() : openLetter();
+                }
+            });
+
+            // efecto presión
+            letterEnvelope.addEventListener('pointerdown', () => {
+                letterEnvelope.style.transform = 'scale(0.985)';
+                letterEnvelope.style.transition = 'transform 0.15s ease';
+            });
+            letterEnvelope.addEventListener('pointerup', () => {
+                letterEnvelope.style.transform = 'scale(1)';
+                letterEnvelope.style.transition = 'transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            });
+            letterEnvelope.addEventListener('pointerleave', () => {
+                letterEnvelope.style.transform = 'scale(1)';
+                letterEnvelope.style.transition = 'transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            });
+
+            // ===== MEMORY CHIPS =====
+            memoryChips.forEach((chip) => {
+                const revealText = chip.getAttribute('data-reveal') || '';
+                const revealEl = chip.querySelector('.chip-reveal');
+                if (revealEl) revealEl.textContent = revealText;
+
+                chip.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const isRevealed = chip.classList.contains('revealed');
+
+                    memoryChips.forEach((c) => {
+                        if (c !== chip) c.classList.remove('revealed', 'tapped');
+                    });
+
+                    if (isRevealed) {
+                        chip.classList.remove('revealed', 'tapped');
+                    } else {
+                        chip.classList.add('revealed', 'tapped');
+                        haptic(10);
+                        setTimeout(() => chip.classList.remove('tapped'), 400);
+                    }
+                });
+
+                chip.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        chip.click();
+                    }
+                });
+                chip.setAttribute('tabindex', '0');
+                chip.setAttribute('role', 'button');
+                chip.setAttribute('aria-label', chip.querySelector('.chip-title')?.textContent || 'Recuerdo');
+            });
+
+            // ===== REPRODUCTOR DE MÚSICA =====
+            musicButton.addEventListener('click', () => {
+                if (isMusicPlaying) {
+                    audioPlayer.pause();
+                    isMusicPlaying = false;
+                    musicIcon.textContent = '🎵';
+                    musicLabel.textContent = 'Toca para escuchar nuestra canción';
+                    musicButton.classList.remove('playing');
+                    haptic(10);
+                } else {
+                    // Intentar reproducir
+                    audioPlayer.play().then(() => {
+                        isMusicPlaying = true;
+                        musicIcon.textContent = '🎶';
+                        musicLabel.textContent = '♫ Sonando para ti';
+                        musicButton.classList.add('playing');
+                        haptic(20);
+                    }).catch((err) => {
+                        // Silencio si falla (ej. falta archivo)
+                        console.warn('No se pudo reproducir la música:', err);
+                        musicLabel.textContent = 'No se encontró "musica.mp3"';
+                        setTimeout(() => {
+                            musicLabel.textContent = 'Toca para escuchar nuestra canción';
+                        }, 3000);
+                    });
+                }
+            });
+
+            // Detener animación cuando termina la canción
+            audioPlayer.addEventListener('ended', () => {
+                isMusicPlaying = false;
+                musicIcon.textContent = '🎵';
+                musicLabel.textContent = 'Toca para escuchar nuestra canción';
+                musicButton.classList.remove('playing');
+            });
+
+            // ===== CORAZÓN INTERACTIVO =====
+            heartButton.addEventListener('click', () => {
+                haptic(20);
+                heartTapCount++;
+
+                if (!isHeartBeating) {
+                    isHeartBeating = true;
+                    heartButton.classList.add('beating', 'pulsed');
+                    heartButton.querySelector('.heart-emoji').textContent = '❤️';
+                    heartButton.querySelector('.heart-label').textContent = 'Late por ti';
+                }
+
+                const phrase = heartPhrases[Math.floor(Math.random() * heartPhrases.length)];
+                heartMessage.textContent = phrase;
+                heartMessage.classList.add('visible');
+
+                heartButton.style.transform = 'scale(0.88)';
+                heartButton.style.transition = 'transform 0.12s ease';
+                setTimeout(() => {
+                    heartButton.style.transform = 'scale(1)';
+                    heartButton.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                }, 120);
+
+                clearTimeout(heartButton._msgTimeout);
+                heartButton._msgTimeout = setTimeout(() => {
+                    heartMessage.classList.remove('visible');
+                }, 5000);
+
+                if (heartTapCount === 7) {
+                    heartMessage.textContent = '💛 Cada toque es un "te amo" que no siempre digo en voz alta.';
+                    heartMessage.classList.add('visible');
+                    clearTimeout(heartButton._msgTimeout);
+                    heartButton._msgTimeout = setTimeout(() => heartMessage.classList.remove('visible'), 6000);
+                }
+                if (heartTapCount === 15) {
+                    heartMessage.textContent =
+                        '🌙 Eres la razón por la que incluso mis días grises tienen luz. Nunca lo dudes.';
+                    heartMessage.classList.add('visible');
+                    clearTimeout(heartButton._msgTimeout);
+                    heartButton._msgTimeout = setTimeout(() => heartMessage.classList.remove('visible'), 7000);
+                }
+            });
+
+            heartButton.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    heartButton.click();
+                }
+            });
+
+            // ===== COSAS QUE SIEMPRE... =====
+            const getRandomThing = () => {
+                let idx;
+                do {
+                    idx = Math.floor(Math.random() * thingsPhrasesList.length);
+                } while (idx === lastThingIndex && thingsPhrasesList.length > 1);
+                lastThingIndex = idx;
+                return thingsPhrasesList[idx];
+            };
+
+            thingsCard.addEventListener('click', () => {
+                haptic(8);
+                thingsPhrase.classList.add('fading');
+                if (thingsIcon) {
+                    thingsIcon.style.transform = 'rotate(18deg) scale(1.25)';
+                    thingsIcon.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                }
+
+                setTimeout(() => {
+                    thingsPhrase.textContent = getRandomThing();
+                    thingsPhrase.classList.remove('fading');
+                    if (thingsIcon) {
+                        thingsIcon.style.transform = 'rotate(0deg) scale(1)';
+                    }
+                }, 350);
+            });
+
+            thingsCard.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    thingsCard.click();
+                }
+            });
+
+            // ===== PARALLAX EN ORBES =====
+            const handleParallax = () => {
+                const scrollY = window.scrollY;
+                orbs.forEach((orb) => {
+                    const speed = parseFloat(orb.dataset.speed) || 0.1;
+                    orb.style.transform = `translateY(${scrollY * speed}px)`;
+                });
+            };
+
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        handleParallax();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+
+            // ===== PREVENIR ZOOM EN DOBLE TAP =====
+            document.addEventListener('dblclick', (e) => {
+                const targets = ['button', '[role="button"]', '.letter-envelope', '.memory-chip', '.things-card'];
+                if (targets.some(sel => e.target.closest(sel))) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+
+            // ===== EASTER EGG FOOTER =====
+            const footerHeart = document.querySelector('.footer-heart');
+            let footerTapCount = 0,
+                footerTapTimer = null;
+            if (footerHeart) {
+                footerHeart.addEventListener('click', () => {
+                    footerTapCount++;
+                    clearTimeout(footerTapTimer);
+                    footerTapTimer = setTimeout(() => { footerTapCount = 0; }, 800);
+                    if (footerTapCount >= 3) {
+                        footerTapCount = 0;
+                        haptic([15, 30, 15]);
+                        footerHeart.textContent = '🤍';
+                        footerHeart.style.fontSize = '28px';
+                        footerHeart.style.transition = 'all 0.4s ease';
+                        setTimeout(() => {
+                            footerHeart.textContent = '♥';
+                            footerHeart.style.fontSize = '20px';
+                        }, 1500);
+                    }
+                });
+            }
+
+            // ===== LOG =====
+            console.log('%c🌸 Hecho con cariño para ti, amorcito linda preciosita. %cSi ves esto, a veces eres curiosa y eso me encanta. 🤍',
+                'font-size:1.1em; color:#c28080;', 'font-size:0.9em; color:#8c7a7b;');
+
+        })();
+    </script>
+</body>
+</html>
